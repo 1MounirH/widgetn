@@ -1,4 +1,3 @@
-<!-- original : https://codepen.io/SeanNorton/pen/LWBXQL -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,84 +9,89 @@
 
     <style>
 
-        /*CSS RESETS*/
+        /* CSS RESETS */
+        body {
+            background-color: #fff;
+            line-height: 1.6;
+            margin: 0; /* Remove default margin */
+            padding: 0; /* Remove default padding */
+        }
 
-body{
-    background-color: #fff;
-    line-height: 1.6;
+        h1 {
+            margin-top: 0;
+        }
 
-}
+        /* CSS START */
+        .full-table {
+            display: table;
+            height: 100%;
+            width: 100%;
+        }
 
-h1 {
-    margin-top: 0;
-}
+        .table-cell {
+            display: table-cell;
+            vertical-align: middle;
+            text-align: center;
+        }
 
+        .card {
+            padding: 10px 5vw; /* Adjusted padding for responsiveness */
+            border-radius: 10px;
+            background: #553c4e;
+            width: 90%; /* Adjusted width for responsiveness */
+            max-width: 400px; /* Added maximum width */
+            color: #fff;
+            display: inline-block;
+            box-shadow: 2px 2px 1px 0px #330835;
+        }
 
-/*CSS START*/
+        .card:hover {
+            margin-top: 2px;
+            box-shadow: none;
+        }
 
-.full-table {
-    display: table;
-    height: 100%;
-    width: 100%;
-}
+        .clock {
+            display: inline;
+            font-family: 'Bebas Neue', cursive;
+            font-size: 2em;
+        }
 
-.table-cell {
-    display: table-cell;
-    vertical-align: middle;
-    text-align: center;
-}
+        .time {
+            display: inline;
+            min-width: 37px;
+        }
 
-.card {
-    padding: 10px 25px 10px 25px;
-    border-radius: 10px;
-    background: #553c4e;
-    width: 85vw;
-    color: #fff;
-    display: inline-block;
-    box-shadow: 2px 2px 1px 0px #330835;
-}
+        .colon {
+            font-size: 1.1em;
+            display: inline-block;
+        }
 
-.card:hover {
-    margin-top: 2px;
-    box-shadow: none;
-}
+        .date {
+            display: inline;
+            min-width: 162px;
+            font-family: 'Bebas Neue', cursive;
+            font-size: 2em;
+            padding-right: 30px;
+        }
 
-.clock {
-    display: inline;
-    font-family: 'Bebas Neue', cursive;
-    font-size: 2em;
-   
-}
+        .greet {
+            display: inline;
+            font-family: 'Dancing Script', cursive;
+            font-size: 2rem;
+            padding-right: 30px;
+        }
 
-.time {
-    display: inline;
-    min-width: 37px;
-}
-
-.colon {
-    font-size: 1.1em;
-    display: inline-block;
-}
-
-.date {
-    display: inline;
-    min-width: 162px;
-    font-family: 'Bebas Neue', cursive;
-    font-size: 2em;
-    padding-right: 30px;
-}
-.greet{
-    
-    display:inline;
-    font-family: 'Dancing Script', cursive;
-    font-size: 2rem;
-     padding-right: 30px;
-}
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            .card {
+                width: 95%; /* Adjusted width for smaller screens */
+                padding: 10px 3vw; /* Adjusted padding for smaller screens */
+            }
+        }
 
     </style>
 </head>
 <body>
-    <link href="https://fonts.googleapis.com/css?family=Lobster|Roboto:400,700" rel="stylesheet">
 
 <div class="full-table">
   <div class="table-cell">
@@ -109,62 +113,61 @@ h1 {
 
 <script>
     function date() {
-var today = new Date();
-document.getElementById('date').innerHTML = today.toDateString();
-}
+        var today = new Date();
+        document.getElementById('date').innerHTML = today.toDateString();
+    }
 
+    function clock() {
+        var today = new Date();
+        var hour = zeros(twelveHour(today.getHours()));
+        var minutes = zeros(today.getMinutes());
+        var seconds = zeros(today.getSeconds());
+        if(today.getHours() >=12){
+            seconds+=" pm"
+        }
+        else{
+            seconds+=" am"
+        }
+        var hrs = today.getHours();
+        var greet = '';
+        if (hrs < 12)
+            greet = 'Good Morning Mounir ';
+        else if (hrs >= 12 && hrs <= 17)
+            greet = 'Good Afternoon Mounir ';
+        else if (hrs >= 17 && hrs <= 24)
+            greet = 'Good Evening Mounir ';
+        
+        document.getElementById('greet').innerHTML = greet;
+        document.getElementById('hour').innerHTML = hour;
+        document.getElementById('min').innerHTML = minutes;
+        document.getElementById('sec').innerHTML = seconds;
+    }
 
-function clock() {
-var today = new Date();
-var hour = zeros(twelveHour(today.getHours()));
-var minutes = zeros(today.getMinutes());
-var seconds = zeros(today.getSeconds());
-if(today.getHours() >=12){
-    seconds+=" pm"
-}
-else{
-    seconds+=" am"
-}
-hrs = today.getHours();
-if (hrs < 12)
-        greet = 'Good Morning Mounir ';
-    else if (hrs >= 12 && hrs <= 17)
-        greet = 'Good Afternoon Mounir ';
-    else if (hrs >= 17 && hrs <= 24)
-        greet = 'Good Evening Mounir ';
-// console.log(today.toLocaleTimeString());
-document.getElementById('greet').innerHTML = greet;
-document.getElementById('hour').innerHTML = hour;
-document.getElementById('min').innerHTML = minutes;
-document.getElementById('sec').innerHTML = seconds;
-}
+    function twelveHour(hour) {
+        if (hour > 12) {
+            return hour -= 12 
+        } else if (hour === 0) {
+            return hour = 12;
+        } else {
+            return hour;
+        }
+    }
 
-function twelveHour(hour) {
-if (hour > 12) {
-    return hour -= 12 
-} else if (hour === 0) {
-    return hour = 12;
-} else {
-    return hour
-}
-}
-    
-// adds zero infront of single digit number
-function zeros(num) {
-if (num < 10) {
-    num = '0' + num
-};
-return num;
-}
+    // adds zero in front of single digit number
+    function zeros(num) {
+        if (num < 10) {
+            num = '0' + num;
+        }
+        return num;
+    }
 
-function dateTime() {
-date();
-clock();
-setTimeout(dateTime, 500);
-}
+    function dateTime() {
+        date();
+        clock();
+        setTimeout(dateTime, 500);
+    }
 
-dateTime()
-// END
+    dateTime();
 </script>
 
 </body>
